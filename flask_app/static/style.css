@@ -1,0 +1,21 @@
+/* *{
+    border: 1px solid red;
+} */
+
+body {
+    background-color: rgb(34, 34, 34);
+}
+
+p {
+    color: whitesmoke
+}
+
+#box {
+    width:1110px;
+}
+img {
+    height:60px;
+    width: 60px;
+    width:auto;
+    padding-bottom: -5px;
+}

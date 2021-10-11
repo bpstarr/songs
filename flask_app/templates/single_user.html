@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>User Favorite Songs</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico')}}"/>
+</head>
+<body>
+    <div class="container">
+        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark">
+            <h1 class = "text-center bg-dark text-secondary">Welcome {{user_logged_in.first_name}}</h1>
+            <img class ="rounded-circle account-img" src = {{image_file}}/{{user_logged_in.picture}}>
+            <div class = "d-flex col-5 justify-content-around">
+                <a href="/logout" class = "btn btn-danger">logout</a>
+                <a href="/user/{{session['user_id']}}" class = "btn btn-danger">Edit User Information</a>
+                <a href="/dashboard" class = "btn btn-danger">Dashboard</a>
+            </div>
+        </nav>
+    {% if users.fav_genre != None %}
+    <h1 class = "text-secondary">{{users.first_name}}'s Favorite Genre: {{users.fav_genre}}</p>
+    {% endif %}
+
+    <h1 class = "text-secondary">{{users.first_name}}'s Favorite Songs:</h1>
+    <div>
+    {% for song in all_songs %}
+    <p class = "border border-dark bg-secondary p-2">{{ song.song_name }} By: {{song.artist_name}}</p>
+    {% if song.user_id == session['user_id'] %}
+        <a href="/destroy/song/{{song.id}}" class = "text-danger">Delete</a>
+        <a href ="/edit/song/{{song.id}}" class = "text-danger" >Edit</a>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

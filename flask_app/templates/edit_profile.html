@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+
+    <title>Edit User Page</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico')}}"/>
+</head>
+<body>
+    <div class="container">
+        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark">
+            <h1 class = "text-center bg-dark text-secondary">Welcome {{user.first_name}}</h1>
+            <div class = "d-flex col-5 justify-content-around">
+                <a href="/logout" class = "btn btn-danger">logout</a>
+                <a href="/dashboard" class = "btn btn-danger">Dashboard</a>
+            </div>
+        </nav>
+        <h1 class = "text-white ml-3">Edit User Information:</h1>
+        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                {% if messages %}                            <!-- check if there are any messages -->
+                    {% for message in messages %}            <!-- loop through the messages -->
+                        <p class = "text-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                {% endif %}
+        {% endwith %}
+        <form action="/edit_user/{{user.id}}" method = "POST" class = "bg-dark text-white" enctype = "multipart/form-data">
+            <input type="hidden" name = 'id' value="{{user.id}}">
+            <div class = "form-group ml-2">
+                <label for="first_name">First Name:</label>
+                <input type = "text" name = "first_name" value = "{{ user.first_name }}" class = "bg-secondary text-white mt-2">
+            </div>
+            <div class = "form-group ml-2">
+                <label for="last_name">Last Name:</label>
+                <input type = "text" name = "last_name" value = "{{ user.last_name }}" class = "bg-secondary text-white">
+            </div>
+            <div class = "form-group ml-2">
+                <label for="email">Email:</label>
+                <input type = "text" name = "email" value = "{{ user.email }}" class = "bg-secondary text-white mt-2">
+            </div>
+            <div class = "form-group ml-2">
+                <label for="password">Password:</label>
+                <input type = "password" name = "password" value = "{{ user.password }}" class = "bg-secondary text-white">
+            </div>
+            <div class = "form-group ml-2">
+                <label for="verify_password">Verify Password:</label>
+                <input type = "password" name = "verify_password" value = "{{ user.password }}" class = "bg-secondary text-white">
+            </div>
+            <div class = "form-group ml-2">
+                <label for="fav_genre">Favorite Genre</label>
+                    <select name="fav_genre" id = "fav_genre" class ="text-white bg-secondary">
+                        <option value="rock">Rock</option>
+                        <option value="rap">Rap</option>
+                        <option value="metal">Metal</option>
+                        <option value="jazz">Jazz</option>
+                        <option value="classical">Classical</option>
+                        <option value="indie">Indie</option>
+                        <option value="emo">Emo</option>
+                        <option value="reggae">Reggae</option>
+                        <option value="other">Other</option>
+                    </select>
+            </div>
+            <div class = "form-group ml-2">
+                <label for="picture">Set a Profile Picture:</label>
+                <input class = "form-control-file" type = "file" name = "picture" class = "form-control-file">
+            </div>
+            <input type="submit" name="submit" value = "Upload" class = "btn btn-danger ml-2 mb-2"> 
+
+            <a href="/destroy/user/{{user.id}}" class = "btn btn-danger ml-2 mb-2">Delete Account</a>
+        </form>
+    </div>
+</body>
+</html>

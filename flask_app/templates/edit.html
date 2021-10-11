@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Edit Song</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico')}}"/>
+</head>
+<body>
+    <div class="container">
+        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark">
+            <h1 class = "text-center bg-dark text-secondary">Welcome {{users.first_name}}</h1>
+            <div class = "d-flex col-5 justify-content-around">
+                <a href="/logout" class = "btn btn-danger">logout</a>
+                <a href="/edit_user_info" class = "btn btn-danger">Edit User Information</a>
+                <a href="/dashboard" class = "btn btn-danger">Dashboard</a>
+            </div>
+        </nav>
+        <h1 class = "text-secondary ml-3">Edit Song</h1>
+        <form action="/edit_song" method = "POST" class = "bg-dark text-white">
+            <input type="hidden" name = 'id' value="{{song.id}}">
+            <div class = "form-group ml-2">
+                <label for="song_name">Song Name</label>
+                <input type = "text" name = "song_name" value = "{{ song.song_name }}" class = "bg-secondary text-white mt-2">
+            </div>
+            <div class = "form-group ml-2">
+                <label for="artist_name">Artist Name</label>
+                <input type = "text" name = "artist_name" value = "{{ song.artist_name }}" class = "bg-secondary text-white">
+            </div>
+            <div class = "form-group ml-2">
+                <label for="description">Why is it favorite song?</label>
+                <textarea type="textarea" id = "description" name="description" class = "form-control large mb-1 text-white bg-secondary col-md-4" rows = "4">{{ song.description }}</textarea>
+            </div>
+            <div class = "form-group ml-2">
+                <label for="genre">Genre</label>
+                    <select name="genre" id = "genre" class ="text-white bg-secondary">
+                        <option value="rock">Rock</option>
+                        <option value="rap">Rap</option>
+                        <option value="metal">Metal</option>
+                        <option value="jazz">Jazz</option>
+                        <option value="classical">Classical</option>
+                        <option value="indie">Indie</option>
+                        <option value="emo">Emo</option>
+                        <option value="reggae">Reggae</option>
+                        <option value="other">Other</option>
+                    </select>
+            </div>
+            <input type="submit" name="/edit_song" value = "Submit Changes" class = "btn btn-danger ml-2 mb-2"> 
+        </form>
+    </div>
+</body>
+</html>
