@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico')}}"/>
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark">
             <h1 class = "text-center bg-dark text-secondary">Welcome {{users.first_name}}</h1>
             <img class ="rounded-circle account-img" src = "{{image_file}}{{session['user_picture']}}">
@@ -19,7 +19,7 @@
                 <a href="/user/{{session['user_id']}}" class = "btn btn-danger">Edit User Information</a>
             </div>
         </nav>
-            {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+            {% with messages = get_flashed_messages(category_filter=["message"]) %}     <!-- declare a variable called messages -->
                 {% if messages %}                            <!-- check if there are any messages -->
                     {% for message in messages %}            <!-- loop through the messages -->
                         <p class = "text-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
@@ -54,17 +54,37 @@
             </div>
                 <input type="submit" value = "Add Song" name="song" class = "mb-3 ml-3 btn btn-danger">
         </form>
-        <h1 class = "text-secondary">All Users Favorite Songs</h1>
-        <div id = "box">
-            {% for song in all_songs%}
-            <div class = "mt-2 justify-content-around">
-                <div class = "d-flex bg-dark">
-                <img class ="rounded-circle account-img bg-dark"  style = "width:60px" src = {{image_file}}{{song.creator.picture}}><p class="bg-dark col-10 pt-3 pb-5"><a href = "/users/{{song.creator.id}}" class = "text-danger"> {{song.creator.first_name}}:  </a> {{ song.song_name }} By: {{song.artist_name}} Because {{ song.description }}</p>
-                </div>
-                {% if song.creator.id == session['user_id'] %}
-                <a href="/destroy/song/{{song.id}}" class = "text-danger bg-dark col-12">Delete</a>
-                <a href ="/edit/song/{{song.id}}" class = "text-danger bg-dark col-12">Edit</a>
+        <h1 class = "text-secondary mt-2">All Users Favorite Songs</h1>
+        {% with errors = get_flashed_messages(category_filter=["error"]) %}     <!-- declare a variable called messages -->
+                {% if errors %} 
+                    <div class ="alert-message block-message error">
+                        {%- for message in errors %}            <!-- loop through the messages -->
+                            <p class = "text-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                        {% endfor %}
                 {% endif %}
+                    </div>
+            {% endwith %}
+        {% for song in all_songs%}
+        <div id = "box">
+            <div class = "mt-5 justify-content-around">
+                <div class = "d-flex bg-dark">
+                    <img class ="rounded-circle account-img bg-dark mt-2 ml-2"  style = "width:60px" src = {{image_file}}{{song.creator.picture}}> 
+                    <p class="bg-dark col-10 pt-3 pb-5 mt-2"><a href = "/users/{{song.creator.id}}" class = "text-danger"> {{song.creator.first_name}}:  </a> {{ song.song_name }} By: {{song.artist_name}} Because {{ song.description }} | Genre: {{song.genre}}</p>
+                    <a href ="/song/lyrics/{{song.id}}" class = "btn btn-danger mt-3" style = "height:40px">Lyrics</a>
+
+                </div>   
+                <div class = "bg-dark no-gutter">
+                    <div class = "form-inline">
+                        <p class = "bg-dark ml-2 mb-2">Posted On: {{song.created_at.strftime('%m,%d,%Y')}} @ {{song.created_at.strftime('%l:%M %p')}}</p>
+                        {% if song.created_at != song.updated_at %}
+                        <p class = "bg-dark ml-2 mb-2"> Updated At: {{song.updated_at.strftime('%m,%d,%Y')}} @ {{song.updated_at.strftime('%l:%M %p')}}</p>
+                        {% endif %}
+                    </div>
+                    {% if song.creator.id == session['user_id'] %}
+                    <a href="/destroy/song/{{song.id}}" class = "text-danger bg-dark mb-2 ml-2">Delete</a> 
+                    <a href ="/edit/song/{{song.id}}" class = "text-danger bg-dark mb-2 ml-2">Edit</a>
+                    {% endif %}
+                </div>
             {% endfor %}
             </div>
         </div>    

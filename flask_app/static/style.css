@@ -19,3 +19,8 @@ img {
     width:auto;
     padding-bottom: -5px;
 }
+
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}

@@ -21,17 +21,21 @@
             </div>
         </nav>
     {% if users.fav_genre != None %}
-    <h1 class = "text-secondary">{{users.first_name}}'s Favorite Genre: {{users.fav_genre}}</p>
+    <h1 class = "text-secondary">{{users.first_name}}'s Favorite Genre is {{users.fav_genre}}</p>
     {% endif %}
 
     <h1 class = "text-secondary">{{users.first_name}}'s Favorite Songs:</h1>
-    <div>
     {% for song in all_songs %}
-    <p class = "border border-dark bg-secondary p-2">{{ song.song_name }} By: {{song.artist_name}}</p>
+    <div class = "bg-dark mb-3 justify-content-around">
+        <div class = "d-flex bg-dark">
+            <p class = "border border-dark bg-dark mt-2 col-10">{{ song.song_name }} By: {{song.artist_name}}</p>
+            <a href ="/song/lyrics/{{song.id}}" class = "btn btn-danger mt-1" style = "height:40px">Lyrics</a>
+        </div>
     {% if song.user_id == session['user_id'] %}
-        <a href="/destroy/song/{{song.id}}" class = "text-danger">Delete</a>
-        <a href ="/edit/song/{{song.id}}" class = "text-danger" >Edit</a>
+        <a href="/destroy/song/{{song.id}}" class = "text-danger ml-2 mb-2">Delete</a>
+        <a href ="/edit/song/{{song.id}}" class = "text-danger ml-2 mb-2" >Edit</a>
     {% endif %}
+    </div>
     {% endfor %}
 </body>
 </html>

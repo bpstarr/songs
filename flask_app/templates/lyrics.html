@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Users Favorite Songs</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico')}}"/>
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark">
+            <h1 class = "text-center bg-dark text-secondary">Welcome {{users.first_name}}</h1>
+            <img class ="rounded-circle account-img" src = "{{image_file}}{{session['user_picture']}}">
+            <div class = "d-flex col-5 justify-content-around">
+                <a href="/logout" class = "btn btn-danger">logout</a>
+                <a href="/user/{{session['user_id']}}" class = "btn btn-danger">Edit User Information</a>
+                <a href="/dashboard" class = "btn btn-danger">Dashboard</a>
+            </div>
+        </nav>
+        <div class ='bg-dark'>
+            <h1 class = "text-center text-white">Lyrics for "{{song.song_name}}" by {{song.artist_name}}</h1>
+            <p class="mx-auto" style = "width:1000px">{{lyric}}</p>
+        </div>
+
+</body>
+</html>

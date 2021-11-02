@@ -1,6 +1,8 @@
+from logging import NullHandler
 from flask_app import app
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models.user import User
+import lyricsgenius
 from flask import flash
 
 class Song():
@@ -90,20 +92,44 @@ class Song():
         song = cls(results[0])
         print(song)
         return song
-        
+
+    @classmethod
+    def get_songs_api(cls,data):
+        query = "SELECT * FROM songs WHERE id = %(id)s"
+        results = connectToMySQL('songs').query_db(query,data)
+        songs = cls(results[0])
+        genius = lyricsgenius.Genius('pw10SvtqDN5Laie9kDfpgjUCQtkiOCTeByBUAry_HU4QM56RACFwNGAx0uENV73P')
+        artist = genius.search_artist(songs.artist_name, max_songs = 0)
+        song = genius.search_song(songs.song_name, artist.name)
+        print(song.lyrics)
+        return song.lyrics
+    
+    @classmethod
+    def api_validator(cls,data):
+        query = "SELECT * FROM songs WHERE id = %(id)s"
+        results = connectToMySQL('songs').query_db(query,data)
+        songs = cls(results[0])
+        genius = lyricsgenius.Genius('pw10SvtqDN5Laie9kDfpgjUCQtkiOCTeByBUAry_HU4QM56RACFwNGAx0uENV73P')
+        artist = genius.search_artist(songs.artist_name, max_songs = 0)
+        song = genius.search_song(songs.song_name, artist.name)
+        is_valid = True
+        if song == None:
+            flash('The song lyrics do not exist. Please check the spelling. If the spelling is correct, then we apologize for the song not being in the database.', category = 'error')
+            is_valid = False
+        return is_valid
 
     @staticmethod
     def song_validator(song):
         is_valid = True
         if len(song['song_name']) == 0:
-            flash("Song title must be filled out")
+            flash("Song title must be filled out",category = 'message')
             is_valid = False
         if len(song['artist_name']) == 0:
-            flash("Artist name must be filled out")
+            flash("Artist name must be filled out",category = 'message')
             is_valid = False
         if len(song['description']) == 0:
-            flash("Why do you like this song? Please fill it out.")
+            flash("Why do you like this song? Please fill it out.", category = 'message')
             is_valid = False
         return is_valid 
 
-
+    

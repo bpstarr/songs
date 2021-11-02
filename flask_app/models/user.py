@@ -88,7 +88,7 @@ class User():
     
     @classmethod
     def edit_user(cls,data):
-        query = "UPDATE users SET first_name = %(first_name)s,last_name = %(last_name)s,email = %(email)s,password = %(password)s, fav_genre = %(fav_genre)s,picture = %(picture)s WHERE id = %(id)s;"
+        query = "UPDATE users SET first_name = %(first_name)s,last_name = %(last_name)s,email = %(email)s,password = %(hashed_pw)s, fav_genre = %(fav_genre)s,picture = %(picture)s WHERE id = %(id)s;"
         results = connectToMySQL('songs').query_db(query,data)
         print(results)
         return results

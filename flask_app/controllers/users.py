@@ -144,6 +144,8 @@ def destroy_user(id):
     User.destroy_user(data)
     return redirect('/')
 
+
+
     
     
     
