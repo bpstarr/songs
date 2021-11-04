@@ -70,9 +70,7 @@ def get_lyrics(id):
         'id': session['user_id']
     }
     image_file = url_for('static', filename ='profile_pics/')
-
     if not Song.api_validator(data):
         return redirect('/dashboard')
-
     return render_template('lyrics.html',lyric = Song.get_songs_api(data),users = User.show_single_user(user_data),song = Song.show_single_song(data),image_file = image_file)
     

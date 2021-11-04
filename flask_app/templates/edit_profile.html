@@ -11,15 +11,15 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico')}}"/>
 </head>
 <body>
-    <div class="container">
-        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark">
+    <div class="container-fluid">
+        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark mt-2">
             <h1 class = "text-center bg-dark text-secondary">Welcome {{user.first_name}}</h1>
             <div class = "d-flex col-5 justify-content-around">
                 <a href="/logout" class = "btn btn-danger">logout</a>
                 <a href="/dashboard" class = "btn btn-danger">Dashboard</a>
             </div>
         </nav>
-        <h1 class = "text-white ml-3">Edit User Information:</h1>
+        <h1 class = "text-white ml-3 mt-3 mb-3">Edit User Information:</h1>
         {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
                 {% if messages %}                            <!-- check if there are any messages -->
                     {% for message in messages %}            <!-- loop through the messages -->
@@ -67,7 +67,7 @@
                 <label for="picture">Set a Profile Picture:</label>
                 <input class = "form-control-file" type = "file" name = "picture" class = "form-control-file">
             </div>
-            <input type="submit" name="submit" value = "Upload" class = "btn btn-danger ml-2 mb-2"> 
+            <input type="submit" name="submit" value = "Update" class = "btn btn-danger ml-2 mb-2"> 
 
             <a href="/destroy/user/{{user.id}}" class = "btn btn-danger ml-2 mb-2">Delete Account</a>
         </form>

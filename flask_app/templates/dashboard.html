@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark">
+        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark mt-2">
             <h1 class = "text-center bg-dark text-secondary">Welcome {{users.first_name}}</h1>
             <img class ="rounded-circle account-img" src = "{{image_file}}{{session['user_picture']}}">
             <div class = "d-flex col-5 justify-content-around">
@@ -26,7 +26,7 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-        <h1 class = "text-secondary ml-3">Add Your Favorite Song</h1>
+        <h1 class = "text-secondary ml-1 mt-3 mb-3">Add Your Favorite Song</h1>
         <form action="/create/song" method="post" class = "bg-dark">
             <div class ="d-flex justify-content-between align-items-center form-row text-white ml-3">
                 <div class = "form-group col-md-6">
@@ -54,7 +54,7 @@
             </div>
                 <input type="submit" value = "Add Song" name="song" class = "mb-3 ml-3 btn btn-danger">
         </form>
-        <h1 class = "text-secondary mt-2">All Users Favorite Songs</h1>
+        <h1 class = "text-secondary mt-3">All Users Favorite Songs</h1>
         {% with errors = get_flashed_messages(category_filter=["error"]) %}     <!-- declare a variable called messages -->
                 {% if errors %} 
                     <div class ="alert-message block-message error">
@@ -64,8 +64,8 @@
                 {% endif %}
                     </div>
             {% endwith %}
+        <div class = "col-12">
         {% for song in all_songs%}
-        <div id = "box">
             <div class = "mt-5 justify-content-around">
                 <div class = "d-flex bg-dark">
                     <img class ="rounded-circle account-img bg-dark mt-2 ml-2"  style = "width:60px" src = {{image_file}}{{song.creator.picture}}> 
@@ -73,7 +73,7 @@
                     <a href ="/song/lyrics/{{song.id}}" class = "btn btn-danger mt-3" style = "height:40px">Lyrics</a>
 
                 </div>   
-                <div class = "bg-dark no-gutter">
+                <div class = "bg-dark no-gutter mb-3">
                     <div class = "form-inline">
                         <p class = "bg-dark ml-2 mb-2">Posted On: {{song.created_at.strftime('%m,%d,%Y')}} @ {{song.created_at.strftime('%l:%M %p')}}</p>
                         {% if song.created_at != song.updated_at %}

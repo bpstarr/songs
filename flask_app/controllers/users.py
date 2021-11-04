@@ -46,7 +46,6 @@ def login_user():
     session['user_email'] =user.email
     session['user_picture'] = user.picture
     print(user.picture)
-
     print("Successful login")
     return redirect ('/dashboard')
 
@@ -58,7 +57,6 @@ def dashboard():
         "id" : session['user_id'],
         }
     image_file = url_for('static', filename ='profile_pics/')
-    
     print(Song.get_all_with_users())
     return render_template('dashboard.html', all_songs = Song.get_all_with_users(),users = User.show_single_user(data),image_file = image_file)
 
@@ -78,7 +76,6 @@ def show_user_fav_songs(id):
         "id":id
     }
     image_file = url_for('static', filename ='profile_pics/')
-
     return render_template("single_user.html",users = User.show_single_user(users), user_logged_in = User.show_single_user(logged_in_user_data),
     all_songs = Song.show_user_fav_songs(users),image_file = image_file)
 
@@ -109,8 +106,6 @@ def edit_user(id):
         if file and allowed_file(file.filename):
             profile_pics = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],profile_pics))
-
-
         data = {
             'id':id,
             'first_name':request.form['first_name'],

@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark">
+        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark mt-2">
             <h1 class = "text-center bg-dark text-secondary">Welcome {{users.first_name}}</h1>
             <img class ="rounded-circle account-img" src = "{{image_file}}{{session['user_picture']}}">
             <div class = "d-flex col-5 justify-content-around">
@@ -20,9 +20,9 @@
                 <a href="/dashboard" class = "btn btn-danger">Dashboard</a>
             </div>
         </nav>
-        <div class ='bg-dark'>
-            <h1 class = "text-center text-white">Lyrics for "{{song.song_name}}" by {{song.artist_name}}</h1>
-            <p class="mx-auto" style = "width:1000px">{{lyric}}</p>
+        <div class ='bg-dark mt-4'>
+            <h1 class = "text-center text-white pt-2"><u>Lyrics for "{{song.song_name}}" by {{song.artist_name}}</u></h1>
+            <p class="mx-auto pt-1 pb-2" style = "width:1000px">{{lyric}}</p>
         </div>
 
 </body>
