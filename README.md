@@ -14,6 +14,10 @@ My favorite songs is a blog where users can add there favorite songs and discove
 
 * Users can add their favorite songs, the artist's name, the genre, and a quick description of why they like the song.
 
+### Demo ###
+
+![mysongs](https://user-images.githubusercontent.com/87786124/140447659-72125d2f-e46a-42fd-b15b-76e437efca4e.gif)
+
 
 
 
