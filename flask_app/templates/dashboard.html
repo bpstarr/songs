@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark mt-2">
+        <nav class = "d-flex justify-content-between align-items-center col-12 bg-dark mt-2 pt-1 pb-1">
             <h1 class = "text-center bg-dark text-secondary">Welcome {{users.first_name}}</h1>
             <img class ="rounded-circle account-img" src = "{{image_file}}{{session['user_picture']}}">
             <div class = "d-flex col-5 justify-content-around">
@@ -73,7 +73,7 @@
                     <a href ="/song/lyrics/{{song.id}}" class = "btn btn-danger mt-3" style = "height:40px">Lyrics</a>
 
                 </div>   
-                <div class = "bg-dark no-gutter mb-3">
+                <div class = "bg-dark no-gutter mb-2">
                     <div class = "form-inline">
                         <p class = "bg-dark ml-2 mb-2">Posted On: {{song.created_at.strftime('%m,%d,%Y')}} @ {{song.created_at.strftime('%l:%M %p')}}</p>
                         {% if song.created_at != song.updated_at %}

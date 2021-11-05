@@ -83,7 +83,7 @@ def show_user_fav_songs(id):
 def show_user_edit_page(id):
     if "user_id" not in session:
         return redirect('/logout')
-    image_file = url_for('static', filename ='profile_pics/' + session['user_picture'])
+    image_file = url_for('static', filename ='profile_pics/')
     data = {
         "id":session["user_id"]
     }
