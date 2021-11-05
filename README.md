@@ -12,6 +12,8 @@ My favorite songs is a blog where users can add there favorite songs and discove
 
 * A file upload was excuted for the user to add profile pictures. A static file was used to save the image and the filename was saved to the database, which saves space.
 
+* Users can add their favorite songs, the artist's name, the genre, and a quick description of why they like the song.
+
 
 
 
