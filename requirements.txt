@@ -13,7 +13,6 @@ Jinja2==3.0.1
 lyricsgenius==3.0.1
 MarkupSafe==2.0.1
 mysql-connector==2.2.9
-Pillow==8.3.2
 pycparser==2.20
 PyMySQL==1.0.2
 python-dotenv==0.19.1
