@@ -4,9 +4,9 @@ My favorite songs is a blog where users can add there favorite songs and discove
 
 ### Features ###
 
-* Bullet list Implemented responsive-design using bootstrap to enhance the user experience on different size screens.
+* Implemented responsive-design using bootstrap to enhance the user experience on different size screens.
 
-* Bullet list Set up user registration and login with validations, also used password encryption for added protection on passwords.
+* Set up user registration and login with validations, also used password encryption for added protection on passwords.
 
 * Added an API for the users to read song lyrics on any song.
 
