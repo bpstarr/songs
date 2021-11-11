@@ -53,30 +53,28 @@ class User():
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         is_valid = True
         if len(data['first_name']) < 3:
-            flash("First name needs to be at least 2 character.")
+            flash("First name needs to be at least 2 character.",category = 'message')
             is_valid = False
         if len(data['last_name']) < 3:
-            flash("Last name needs to be at least 2 character.")
+            flash("Last name needs to be at least 2 character.",category ='message')
             is_valid = False
         if not EMAIL_REGEX.match(data['email']):
-            flash("Email is invalid!")
+            flash("Email is invalid!",category = 'message')
             is_valid = False
         if len(data['password'])  < 8:
-            flash('Password must be at least 8 characters.')
+            flash('Password must be at least 8 characters.',category = 'message')
             is_valid = False
         if len(data['verify_password'])  < 8:
-            flash('Verify password must be at least 8 characters.')
+            flash('Verify password must be at least 8 characters.',category = 'message')
             is_valid = False
         query = "SELECT * FROM users WHERE email = %(email)s;"
         results = connectToMySQL('songs').query_db(query,data)
         if len(results) != 0:
-            flash("Email already exists.Please try logging in.")
+            flash("Email already exists.Please try logging in." ,category = 'message')
             is_valid = False
         if data['password'] != data['verify_password']:
-            flash("Passwords must match")
+            flash("Passwords must match", category = 'message')
             is_valid = False
-        if data['picture'] == '':
-            data['picture'] == 'default_profile_pic.jpeg'
         return is_valid
     @classmethod
     def get_by_email(cls,data):
@@ -88,7 +86,7 @@ class User():
     
     @classmethod
     def edit_user(cls,data):
-        query = "UPDATE users SET first_name = %(first_name)s,last_name = %(last_name)s,email = %(email)s,password = %(hashed_pw)s, fav_genre = %(fav_genre)s,picture = %(picture)s WHERE id = %(id)s;"
+        query = "UPDATE users SET first_name = %(first_name)s,last_name = %(last_name)s,email = %(email)s, fav_genre = %(fav_genre)s,picture = %(picture)s WHERE id = %(id)s;"
         results = connectToMySQL('songs').query_db(query,data)
         print(results)
         return results
@@ -111,10 +109,7 @@ class User():
             flash("Last name needs to be at least 2 character.")
             is_valid = False
         if not EMAIL_REGEX.match(data['email']):
-            flash("Email is invalid!")
-            is_valid = False
-        if len(data['password'] or ['verify_password']) == 0:
-            flash('Passwords must be filled out.')
+            flash("Email is invalid!", category = 'error')
             is_valid = False
         query2 = "SELECT * FROM users WHERE id = %(id)s;"
         results2 = connectToMySQL('songs').query_db(query2,data)
@@ -126,9 +121,6 @@ class User():
             if len(results) != 0:
                 flash("Email already in use. Please try a different email")
                 is_valid = False
-        if data['password'] != data['verify_password']:
-            flash("Passwords must match")
-            is_valid = False
         EXT = {'.jpeg','.jpg','.png'}
         root_ext = os.path.splitext(data['picture'])
         if root_ext[1] not in EXT:

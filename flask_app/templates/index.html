@@ -12,7 +12,7 @@
 <body>
     <h1 class = "text-secondary text-center">Welcome to My Favorite Songs</h1>
     <div class ="container-fluid">
-        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+        {% with messages = get_flashed_messages(category_filter=["message"]) %}     <!-- declare a variable called messages -->
             {% if messages %}                            <!-- check if there are any messages -->
                 {% for message in messages %}            <!-- loop through the messages -->
                     <p class = "text-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
@@ -59,9 +59,9 @@
             <div class = "form-group ml-5">
                 <input type="submit" name="add user" class = "btn btn-danger">
             </div>
-            {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
-                {% if messages %}                            <!-- check if there are any messages -->
-                    {% for message in messages %}            <!-- loop through the messages -->
+            {% with errors = get_flashed_messages(category_filter=['error']) %}     <!-- declare a variable called messages -->
+                {% if errors %}                            <!-- check if there are any messages -->
+                    {% for message in errors %}            <!-- loop through the messages -->
                         <p class = "text-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
                     {% endfor %}
                 {% endif %}

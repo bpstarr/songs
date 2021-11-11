@@ -36,7 +36,7 @@ def register_user():
 def login_user():
     user = User.get_by_email(request.form)
     if not user:
-        flash("Invalid email or password")
+        flash("Invalid email or password", category = 'error')
         return redirect('/')
     if not bcrypt.check_password_hash(user.password, request.form['password']):
         flash("Invalid email or password")
@@ -108,8 +108,6 @@ def edit_user(id):
             'first_name':request.form['first_name'],
             'last_name':request.form['last_name'],
             'email':request.form['email'],
-            'password':request.form['password'],
-            'verify_password':request.form['verify_password'],
             'fav_genre':request.form['fav_genre'],
             'picture':request.files['picture'].filename
         }
@@ -119,8 +117,6 @@ def edit_user(id):
             return redirect(f'/user/{id}')
         print(valid)
         if valid:
-            hashed_pw = bcrypt.generate_password_hash(request.form['password'])
-            data['hashed_pw'] = hashed_pw
             user = User.edit_user(data)
             print(user)
             print('User Updated')
