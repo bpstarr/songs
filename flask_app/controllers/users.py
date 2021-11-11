@@ -29,7 +29,6 @@ def register_user():
         user_email = User.get_by_email(data)
         session['user_email'] = user_email.email
         session['user_picture'] = user_email.picture
-        print(user)
         session['user_id'] = user
         print('User logged in.')
     return redirect('/dashboard')
@@ -45,7 +44,6 @@ def login_user():
     session['user_id'] = user.id
     session['user_email'] =user.email
     session['user_picture'] = user.picture
-    print(user.picture)
     print("Successful login")
     return redirect ('/dashboard')
 
@@ -57,7 +55,6 @@ def dashboard():
         "id" : session['user_id'],
         }
     image_file = url_for('static', filename ='profile_pics/')
-    print(Song.get_all_with_users())
     return render_template('dashboard.html', all_songs = Song.get_all_with_users(),users = User.show_single_user(data),image_file = image_file)
 
 @app.route('/logout')
