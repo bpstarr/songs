@@ -2,6 +2,7 @@ from logging import NullHandler
 from flask_app import app
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models.user import User
+import os
 import lyricsgenius
 from flask import flash
 
@@ -98,7 +99,7 @@ class Song():
         query = "SELECT * FROM songs WHERE id = %(id)s"
         results = connectToMySQL('songs').query_db(query,data)
         songs = cls(results[0])
-        genius = lyricsgenius.Genius('pw10SvtqDN5Laie9kDfpgjUCQtkiOCTeByBUAry_HU4QM56RACFwNGAx0uENV73P')
+        genius = lyricsgenius.Genius(os.environ.get('API_KEY'))
         artist = genius.search_artist(songs.artist_name, max_songs = 0)
         song = genius.search_song(songs.song_name, artist.name)
         print(song.lyrics)
@@ -109,7 +110,7 @@ class Song():
         query = "SELECT * FROM songs WHERE id = %(id)s"
         results = connectToMySQL('songs').query_db(query,data)
         songs = cls(results[0])
-        genius = lyricsgenius.Genius('pw10SvtqDN5Laie9kDfpgjUCQtkiOCTeByBUAry_HU4QM56RACFwNGAx0uENV73P')
+        genius = lyricsgenius.Genius(os.environ.get('API_KEY'))
         artist = genius.search_artist(songs.artist_name, max_songs = 0)
         song = genius.search_song(songs.song_name, artist.name)
         is_valid = True
