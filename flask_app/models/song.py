@@ -102,7 +102,6 @@ class Song():
         genius = lyricsgenius.Genius(os.environ.get('API_KEY'))
         artist = genius.search_artist(songs.artist_name, max_songs = 0)
         song = genius.search_song(songs.song_name, artist.name)
-        print(song.lyrics)
         return song.lyrics
     
     @classmethod
